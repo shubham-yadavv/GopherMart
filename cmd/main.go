@@ -1,22 +1,19 @@
 package main
 
 import (
-	"log"
+	"fmt"
 	"net/http"
-	"os"
 
-	"github.com/shubham-yadavv/go-ecommerce/pkg/database"
-	"github.com/shubham-yadavv/go-ecommerce/pkg/middleware"
-	"github.com/shubham-yadavv/go-ecommerce/pkg/routes"
+	"github.com/shubham-yadavv/go-ecommerce/pkg/config"
 )
 
 func main() {
 
-	database.ConnectDB()
+	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "Hello World")
+	})
 
-	routes.UserRoutes()
+	fmt.Println("Server is running on port " + config.Config("PORT"))
+	http.ListenAndServe(":"+config.Config("PORT"), nil)
 
-	middleware.Middleware()
-
-	log.Fatal(http.ListenAndServe(":"+os.Getenv("PORT"), nil))
 }
