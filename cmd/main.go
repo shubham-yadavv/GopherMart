@@ -1,19 +1,23 @@
 package main
 
 import (
-	"fmt"
-	"net/http"
+	"os"
 
-	"github.com/shubham-yadavv/go-ecommerce/pkg/config"
+	"github.com/gin-gonic/gin"
+	"github.com/shubham-yadavv/go-ecommerce/pkg/database"
+	"github.com/shubham-yadavv/go-ecommerce/pkg/routes"
+
+	"github.com/joho/godotenv"
 )
 
 func main() {
 
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		fmt.Fprintf(w, "Hello World")
-	})
+	godotenv.Load()
+	port := os.Getenv("PORT")
 
-	fmt.Println("Server is running on port " + config.Config("PORT"))
-	http.ListenAndServe(":"+config.Config("PORT"), nil)
+	database.DBSet()
+	router := gin.Default()
+	routes.UserRoutes(router)
+	router.Run(":" + port)
 
 }

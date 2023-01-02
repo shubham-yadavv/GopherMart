@@ -1,10 +1,13 @@
 package routes
 
-func UserRoutes() {
-	// http.HandleFunc("/users/signup", controllers.Signup())
-	// http.HandleFunc("/users/login", controllers.Login())
-	// http.HandleFunc("/admin/addproduct", controllers.ProductViewerAdmin())
-	// http.HandleFunc("/users/productview", controllers.SearchProduct())
-	// http.HandleFunc("/users/search", controllers.SearchProductByQuery())
+import (
+	"github.com/gin-gonic/gin"
+
+	"github.com/shubham-yadavv/go-ecommerce/pkg/controllers"
+)
+
+func UserRoutes(incomingRoutes *gin.Engine) {
+	incomingRoutes.POST("/users/signup", controllers.SignUp())
+	incomingRoutes.POST("/users/login", controllers.Login())
 
 }
