@@ -1,0 +1,26 @@
+version: '3.4'
+
+services:
+  app:
+    image: goecommerce
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 3000:3000
+
+  postgres:
+    image: postgres:12.1
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: jarvis22121
+      POSTGRES_DB: ecommerce
+    ports:
+      - 5432:5432
+
+  redis:
+    image: redis:5.0.7-alpine
+    container_name: redis-e-commerce
+    ports:
+      - 6379:6379
+
