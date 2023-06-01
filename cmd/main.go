@@ -1,21 +1,17 @@
 package main
 
 import (
-	"os"
-
 	"github.com/gin-gonic/gin"
-	"github.com/shubham-yadavv/go-ecommerce/pkg/config"
-	"github.com/shubham-yadavv/go-ecommerce/pkg/routes"
-
-	"github.com/joho/godotenv"
+	"github.com/shubham-yadavv/go-ecommerce/config"
+	"github.com/shubham-yadavv/go-ecommerce/internal/database"
+	"github.com/shubham-yadavv/go-ecommerce/internal/routes"
 )
 
 func main() {
 
-	godotenv.Load()
-	port := os.Getenv("PORT")
+	port := config.GetEnv("PORT")
 
-	config.ConnectDatabase()
+	database.ConnectPostgres()
 
 	router := gin.Default()
 
